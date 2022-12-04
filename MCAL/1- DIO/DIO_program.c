@@ -1,3 +1,12 @@
+/**
+ *
+ * @file DIO_program.c
+ * @author Amgad Samir
+ * @brief This is the file that implements the DIO driver in MCAL
+ * @version 1.00
+ * @date 6-12-2022
+ */
+
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
 
@@ -8,6 +17,7 @@
 
 /**
  * @brief This function is used to set a required pin direction
+ * @details
  * @param Copy_u8Port this parameter is used to choose the rquired port among DIO_u8PORTA, DIO_u8PORTB, DIO_u8PORTC , DIO_u8PORTD
  * @param Copy_u8Pin
  * @param Copy_u8Direction
@@ -56,6 +66,13 @@ uint8 DIO_u8SetPinDirection(uint8 Copy_u8Port, uint8 Copy_u8Pin, uint8 Copy_u8Di
 	return Local_u8ErrorState;
 }
 
+/**
+ * @brief
+ * @param Copy_u8Port
+ * @param Copy_u8Pin
+ * @param Copy_u8Value
+ * @return
+ */
 uint8 DIO_u8SetPinValue(uint8 Copy_u8Port, uint8 Copy_u8Pin, uint8 Copy_u8Value)
 {
 
