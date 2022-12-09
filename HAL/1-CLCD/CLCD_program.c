@@ -8,6 +8,7 @@
 
 #include "STD_TYPES.h"
 #include "BIT_MATH.h"
+#include "defines.h"
 #include <util/delay.h>
 
 #include "DIO_interface.h"
