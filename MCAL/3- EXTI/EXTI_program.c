@@ -14,6 +14,8 @@
 #include "EXTI_private.h"
 #include "EXTI_reg.h"
 
+static void (*EXTI_pfINTFuncPtr[3]) (void) = {NULL};	/*array of pointers to functions to hold ISR Callbacks*/
+
 void EXTI_voidInitInt0(void)
 {
 	/*implement INT0 sense control configuration*/
@@ -174,4 +176,54 @@ uint8 EXTI_u8IntDisable(uint8 Copy_u8IntNum)
 	}
 
 	return Local_u8ErrorState;
+}
+
+uint8 EXTI_u8SetCallBack(uint8 Copy_u8IntNum, void (*Copy_pfFuncPtr)(void))
+{
+	uint8 Local_u8ErrorState = OK;
+	if(Copy_pfFuncPtr != NULL)
+	{
+		EXTI_pfINTFuncPtr[Copy_u8IntNum]= Copy_pfFuncPtr;
+	}
+	else
+	{
+		Local_u8ErrorState= NULL_PTR_ERR;
+	}
+	return Local_u8ErrorState;
+}
+
+/**
+ * @brief INT0 ISR
+ */
+void __vector_1 (void) __attribute__((signal));
+void __vector_1 (void)
+{
+	if(EXTI_pfINTFuncPtr[EXTI_u8INT0] != NULL)
+	{
+		EXTI_pfINTFuncPtr[EXTI_u8INT0]();
+	}
+}
+
+/**
+ * @brief INT1 ISR
+ */
+void __vector_2 (void) __attribute__((signal));
+void __vector_2 (void)
+{
+	if(EXTI_pfINTFuncPtr[EXTI_u8INT1] != NULL)
+	{
+		EXTI_pfINTFuncPtr[EXTI_u8INT1]();
+	}
+}
+
+/**
+ * @brief INT2 ISR
+ */
+void __vector_3 (void) __attribute__((signal));
+void __vector_3 (void)
+{
+	if(EXTI_pfINTFuncPtr[EXTI_u8INT2] != NULL)
+	{
+		EXTI_pfINTFuncPtr[EXTI_u8INT2]();
+	}
 }
