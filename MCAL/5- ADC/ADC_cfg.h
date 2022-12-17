@@ -23,4 +23,6 @@
 
 #define ADC_u8PRESCALER_VAL			DIVISION_BY_128
 
+#define ADC_u32TIMEOUT				50000u
+
 #endif
